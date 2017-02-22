@@ -1,0 +1,26 @@
+.margin-bot {
+  margin-bottom: 20px;
+}
+.preview-link-container {
+  text-align: center;
+}
+.preview-container {
+  display: inline-block;
+  padding: 0;
+  height: 95px;
+  width: auto;
+  max-width: 88px;
+  overflow: hidden;
+}
+.preview {
+  width: auto;
+  height: 100%;
+}
+.preview-link {
+  font-size: 12px;
+}
+
+#createButton {
+  border: 2px dotted rgba(255,255,255,0.5);
+  margin-left: 40px;
+}

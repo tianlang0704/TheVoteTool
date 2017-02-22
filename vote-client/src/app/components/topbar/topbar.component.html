@@ -1,0 +1,20 @@
+<nav id="mainNav" class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navStrip">
+        <span class="icon-bar" ></span>
+        <span class="icon-bar" ></span>
+      </button>
+      <a [routerLink]="['']" class="navbar-brand" >
+        <img class="img-rounded" src="http://placehold.it/50x50" />
+      </a>
+    </div>
+    <div class="collapse navbar-collapse navbar-right" id="navStrip">
+      <ul class="nav navbar-nav">
+        <li class="nav-item" [routerLinkActive]="['active']">
+          <a [routerLink]="['/new']">新投票</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,24 @@
+<div id="voteCardContainer" class="container-fluid">
+  <div>
+    <div *ngIf="candidate != null" class="container panel panel-default">
+      <div>
+        <div class="title-container">
+          <span class="title">{{candidate?.name}}</span>  <span class="number">{{candidate?.number}}号</span>
+        </div>
+        <div class="ticket-text">{{candidate?.upCount}} 票</div>
+        <div class="container-fluid img-thumbnail thumb-container">
+          <img class="img-responsive thumb" [src]="candidate?.imageFileString" alt="Thumb">
+        </div>
+        <div class="thoughts">
+          <p class="thoughts-title">我的宣言: </p>
+          <span>{{candidate?.thoughts}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="button-group">
+    <button type="button" class="btn btn-primary" (click)="goBack()">返回</button>
+    <button type="button" class="btn btn-danger" (click)="upVote(candidate?.number)">投TA一票</button>
+  </div>
+</div>
+
