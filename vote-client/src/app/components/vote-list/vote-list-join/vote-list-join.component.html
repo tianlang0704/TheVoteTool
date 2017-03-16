@@ -1,0 +1,39 @@
+<div id="formWrapper" class="container">
+  <form [formGroup]="newListForm" (ngSubmit)="addToStage($event)">
+    <div class="preview-link-container margin-bot">
+      <div class="preview-container img-thumbnail">
+        <img class="preview" [src]="imgSource" alt="Preview" />
+      </div>
+      <div>
+        <label class="btn btn-link preview-link">
+        选择照片
+        <input type="file" (change)="fileChangeEvent($event)" style="display: none;">
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-5 col-xs-12 margin-bot">
+        <div class="input-group">
+          <span class="input-group-addon">参加者姓名</span>
+          <input type="text" class="form-control" formControlName="candidateName">
+        </div>
+        <div *ngIf="formErrors?.candidateName" class="alert alert-danger">
+          {{ formErrors?.candidateName }}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 margin-bot">
+        <div class="input-group">
+          <span class="input-group-addon">参加者宣言</span>
+          <input type="text" class="form-control" formControlName="candidateThoughts">
+        </div>
+        <div *ngIf="formErrors?.candidateThoughts" class="alert alert-danger">
+          {{ formErrors?.candidateThoughts }}
+        </div>
+      </div>
+    </div>
+    <button id="createButton" type="button" class="btn btn-success" (click)="commit()">参加</button>
+  </form>
+</div>
+<hr>

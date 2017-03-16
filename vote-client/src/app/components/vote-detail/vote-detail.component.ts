@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 
-import { VoteService } from "../../../services/vote.service";
-import { Candidate } from "../../../models/candidate";
+import { VoteService } from "../../services/vote.service";
+import { Candidate } from "../../models/candidate";
 
 
 @Component({
@@ -12,7 +12,7 @@ import { Candidate } from "../../../models/candidate";
   styleUrls: ['./vote-detail.component.css']
 })
 export class VoteDetailComponent implements OnInit {
-  public static routeString = "detail/:listId/:number"
+  public static routeString = "detail/:listId/:number";
 
   public candidate: Candidate = null;
 
@@ -23,9 +23,9 @@ export class VoteDetailComponent implements OnInit {
   ) {
     this.route.params.subscribe((params) => {
       this.voteService.promiseToGetCandidate(params["listId"], params["number"])
-        .then((cand) => {
-          console.log(cand);
-          this.candidate = cand;
+        .then((result) => {
+          console.log(result);
+          this.candidate = result.candidate;
         }).catch((error)=>{
           //TODO: show message
           console.log(error);

@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import {VoteService} from "../../services/vote.service";
-import {FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, Form} from "@angular/forms";
+import {Component, OnInit, Input} from '@angular/core';
+import {List} from "../../../models/list";
+import {VoteService} from "../../../services/vote.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-create-new-list',
-  templateUrl: './create-new-list.component.html',
-  styleUrls: ['./create-new-list.component.css']
+  selector: 'app-vote-list-join',
+  templateUrl: './vote-list-join.component.html',
+  styleUrls: ['./vote-list-join.component.css']
 })
-export class CreateNewListComponent implements OnInit {
-  public static routeString = "new";
+export class VoteListJoinComponent implements OnInit {
+
+  @Input() list: List;
 
   constructor(
     private voteService: VoteService,
@@ -23,19 +25,29 @@ export class CreateNewListComponent implements OnInit {
   }
 
 // Mark: =============================== Form functions
+  imgSource: string = "http://placehold.it/88x95";
+
+  public fileChangeEvent(fileInput: any){
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e : any) => this.imgSource = e.target.result;;
+      reader.readAsDataURL(fileInput.target.files[0]);
+    }
+  }
+
   newListForm: FormGroup;
 
   buildForm(): FormGroup {
     const form = this.formBuilder.group({
-      listTitle: [
+      candidateName: [
         "",[
           Validators.required,
-          Validators.maxLength(50)
+          Validators.maxLength(8)
         ]
       ],
-      listDescription: [
+      candidateThoughts: [
         "", [
-          Validators.maxLength(1000)
+          Validators.maxLength(255)
         ]
       ]
     });
@@ -44,12 +56,12 @@ export class CreateNewListComponent implements OnInit {
   }
 
   validationMessages = {
-    listTitle: {
-      required: "请输入标题.",
-      maxlength: "标题最长为50个字符."
+    candidateName: {
+      required: "请输入姓名.",
+      maxlength: "姓名最长为8个字符."
     },
-    listDescription: {
-      maxlength: "简介最长为1000个字符."
+    candidateThoughts: {
+      maxlength: "宣言最长为255个字符."
     }
   };
 
@@ -74,16 +86,20 @@ export class CreateNewListComponent implements OnInit {
 
   commit() {
     if(!this.newListForm.valid) {
-      this.formErrors = this.buildFormErrors(this.newListForm, this.validationMessages);
       return
     }
 
-    const listTitle = this.newListForm.get("listTitle").value;
-    const listDescription = this.newListForm.get("listDescription").value;
+    const name = this.newListForm.get("candidateName").value;
+    const thoughts = this.newListForm.get("candidateThoughts").value;
+    const imageFileString = this.imgSource;
 
-    this.voteService.promiseToCreateVote(listTitle, listDescription)
-    .then((res)=>{
-      this.router.navigateByUrl("/list/" + res.listId);
+    this.voteService.promiseToJoinVote(
+      this.list.listId,
+      name,
+      thoughts,
+      imageFileString
+    ).then((res)=>{
+      this.router.navigateByUrl("/detail/" + res.listId + "/" + res.candidateNumber);
     }, (error)=>{
       console.log(error);
       //TODO: Show message;

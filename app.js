@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var cors = require('cors');
 
-var vote = require('./routes/vote');
+var voteRouter = require('./routes/vote/vote-router');
 var dbConfig = require('./config/database');
 
 var app = express();
@@ -35,7 +35,7 @@ app.use(cors());
 
 //routers
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/serve/vote', vote);
+app.use('/serve/vote', voteRouter);
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, 'public/index.html'));
 });

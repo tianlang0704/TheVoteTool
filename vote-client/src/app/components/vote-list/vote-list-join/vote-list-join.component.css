@@ -31,3 +31,7 @@
 #descriptionText {
   height: 300px;
 }
+
+#formWrapper {
+  margin-bottom: 20px;
+}

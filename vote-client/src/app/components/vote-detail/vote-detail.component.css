@@ -5,7 +5,7 @@
 }
 #voteCardContainer .panel {
   display: inline-block;
-  max-width: 285px;
+  width: 285px;
   margin: 15px;
   padding: 5px 5px 5px 5px;
   box-shadow: 0 3px 10px rgba(0,0,0,0.5);

@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { VoteService } from "../../services/vote.service";
-import { Candidate } from "../../models/candidate";
 import { ActivatedRoute } from "@angular/router";
+import { List } from "../../models/list";
 
 @Component({
   selector: 'app-vote-list',
@@ -9,39 +9,29 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ['vote-list.component.css']
 })
 export class VoteListComponent implements OnInit {
+  public static routeString = "list/:listId";
 
-  @Input() candidates: Candidate[];
-  listId: string;
+  listNav = "info";
+  list: List;
 
   constructor(
     private voteService: VoteService,
     private route: ActivatedRoute
-  ) {
-    route.params.subscribe((params)=>{
-      this.listId = params["listId"];
-      if(this.listId) {
-        this.updateList();
-      }
+  ) { }
+
+  ngOnInit() {
+    this.route.params.subscribe((params)=>{
+      const listId = params["listId"];
+      if(listId) { this.updateList(listId); }
     });
   }
 
-  ngOnInit() {
-
-  }
-
-  updateList(): void {
-    this.voteService.promiseToGetList(this.listId)
-      .then((list) => {
-        this.candidates = list.listCandidates;
-      });
-  }
-
-  upVote(num: number) {
-    this.voteService.promiseToUpVote(this.listId, num)
-      .then(()=>{
-        this.candidates.find((ele)=>(ele.number == num)).upCount += 1;
-      }).catch((error)=>{
-        console.log(error);
+  updateList(listId): void {
+    this.voteService.promiseToGetList(listId)
+    .then((result) => {
+      this.list = result.list;
+    }).catch((error) => {
+      console.log(error);
     });
   }
 }

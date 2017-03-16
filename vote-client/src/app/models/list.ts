@@ -6,6 +6,7 @@ import {Candidate} from "./candidate";
 export class List {
   listTitle: string;
   listDescription: string;
+  listStatus: boolean;
   listId: string;
   listCandidates: Candidate[];
 }

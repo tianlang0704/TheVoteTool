@@ -1,0 +1,24 @@
+<div id="voteCardContainer" class="container-fluid">
+  <div *ngIf="list?.listCandidates?.length <= 0" id="emptyNote">
+    目前没有人参加投票
+  </div>
+  <div *ngFor="let cand of list?.listCandidates" class="container panel panel-default">
+    <div class="col-xs-7" >
+      <div>
+        <p><span class="title">{{cand.name}}</span>  <span class="number">{{cand.number}}号</span></p>
+        <div class="thoughts">{{cand.thoughts}}</div>
+      </div>
+      <div>
+        <button type="button" class="btn btn-danger " (click)="upVote(cand.number)">投TA一票</button>
+        <a [routerLink]="['/detail/', cand.listId, cand.number]" class="detail">详情</a>
+      </div>
+    </div>
+    <div class="col-xs-5 thumb-count-container">
+      <div class="container-fluid img-thumbnail thumb-container">
+        <img class="thumb" [src]="cand.imageFileString" alt="Thumb">
+      </div>
+      <div class="count-text">{{cand.upCount}} 票</div>
+    </div>
+  </div>
+</div>
+<hr>
