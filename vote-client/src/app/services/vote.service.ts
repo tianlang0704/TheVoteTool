@@ -9,8 +9,8 @@ enum VoteHttpMethods { GET, POST }
 @Injectable()
 export class VoteService {
   //base url settings for client server on different hosts/ports
-  private apiBase:String = "http://" + window.location.hostname + ":3000";
-  // private apiBase:String = "";
+  //private apiBase:String = "http://" + window.location.hostname + ":3000";
+  private apiBase:String = "";
 
   constructor(private http: Http) { }
 
