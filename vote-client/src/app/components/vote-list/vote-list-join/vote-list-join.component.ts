@@ -10,7 +10,6 @@ import {Router} from "@angular/router";
   styleUrls: ['./vote-list-join.component.css']
 })
 export class VoteListJoinComponent implements OnInit {
-
   @Input() list: List;
 
   constructor(
@@ -26,17 +25,20 @@ export class VoteListJoinComponent implements OnInit {
 
 // Mark: =============================== Form functions
   imgSource: string = "http://placehold.it/88x95";
-
+  imgError: string;
   public fileChangeEvent(fileInput: any){
-    if (fileInput.target.files && fileInput.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (e : any) => this.imgSource = e.target.result;;
-      reader.readAsDataURL(fileInput.target.files[0]);
+    if (!fileInput.target.files || !fileInput.target.files[0]) { return; }
+    if(fileInput.target.files[0].size > 105 * 1024) {
+      this.imgError = "File size too big";
+      return;
     }
+    this.imgError = null;
+    const reader = new FileReader();
+    reader.onload = (e : any) => this.imgSource = e.target.result;
+    reader.readAsDataURL(fileInput.target.files[0]);
   }
 
   newListForm: FormGroup;
-
   buildForm(): FormGroup {
     const form = this.formBuilder.group({
       candidateName: [
@@ -70,8 +72,7 @@ export class VoteListJoinComponent implements OnInit {
     if (!form || !form.controls) { return; }
     const formErrors: any = {};
     for (const controlName in form.controls) {
-      // clear previous error message (if any)
-
+      // clear previous error message
       formErrors[controlName] = '';
       const control = form.get(controlName);
       if (control && !control.valid) {

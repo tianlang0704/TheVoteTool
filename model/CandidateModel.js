@@ -31,7 +31,7 @@ var candidateSchema = new mongoose.Schema({
 var CandidateModel = module.exports = mongoose.model("Candidate", candidateSchema);
 
 CandidateModel.promiseToGetAllFromListId = function(listId) {
-  return this.find({listId: listId}).exec();
+  return this.find({listId: listId}).sort({upCount: -1}).exec();
 };
 
 CandidateModel.promiseToGetOneFromListId = function(listId, candidateNumber) {

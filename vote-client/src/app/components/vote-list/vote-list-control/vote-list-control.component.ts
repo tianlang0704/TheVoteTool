@@ -17,11 +17,9 @@ export class VoteListControlComponent implements OnInit {
     this._btnRadioModel = value;
     this.currentNavOptionChange.emit(this._btnRadioModel);
   }
-
-  label1: string;
-
-  test() {
-    console.log(this.label1);
+  @Input()
+  set currentNavOptionInputOnly(value) {
+    this._btnRadioModel = value;
   }
 
   constructor() { }

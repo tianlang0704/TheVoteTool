@@ -19,6 +19,9 @@
 .preview-link {
   font-size: 12px;
 }
+.notes {
+  font-size: 11px;
+}
 
 #createButton {
   border: 2px dotted rgba(255,255,255,0.5);

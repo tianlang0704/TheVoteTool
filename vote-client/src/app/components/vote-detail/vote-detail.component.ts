@@ -4,6 +4,7 @@ import { Location } from "@angular/common";
 
 import { VoteService } from "../../services/vote.service";
 import { Candidate } from "../../models/candidate";
+import {Title} from "@angular/platform-browser";
 
 
 @Component({
@@ -13,28 +14,41 @@ import { Candidate } from "../../models/candidate";
 })
 export class VoteDetailComponent implements OnInit {
   public static routeString = "detail/:listId/:number";
-
-  public candidate: Candidate = null;
+  public candidate: Candidate;
+  private paramsError: string;
 
   constructor(
     private voteService: VoteService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private titleService: Title
   ) {
     this.route.params.subscribe((params) => {
-      this.voteService.promiseToGetCandidate(params["listId"], params["number"])
-        .then((result) => {
-          console.log(result);
-          this.candidate = result.candidate;
-        }).catch((error)=>{
-          //TODO: show message
-          console.log(error);
-      });
+      const listId = params["listId"];
+      const candidateNumber = params["number"];
+      if(!listId || !candidateNumber) {
+        this.paramsError = "参数不正确"
+      }
+      this.paramsError = null;
+
+      this.updateCandidate(listId, candidateNumber);
     });
   }
 
   ngOnInit() {
     document.body.scrollTop = 0;
+  }
+
+  updateCandidate(listId: string, candidateNumber: number) {
+    this.voteService.promiseToGetCandidate(listId, candidateNumber)
+    .then((result) => {
+      console.log(result);
+      this.candidate = result.candidate;
+      this.titleService.setTitle(this.candidate.name)
+    }).catch((error)=>{
+      //TODO: show message
+      console.log(error);
+    });
   }
 
   upVote(num: number) {

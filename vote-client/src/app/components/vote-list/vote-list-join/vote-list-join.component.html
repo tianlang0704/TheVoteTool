@@ -4,11 +4,21 @@
       <div class="preview-container img-thumbnail">
         <img class="preview" [src]="imgSource" alt="Preview" />
       </div>
+      <div class="notes">
+        <span>(100KB, jpg; png; gif)</span>
+      </div>
       <div>
         <label class="btn btn-link preview-link">
         选择照片
-        <input type="file" (change)="fileChangeEvent($event)" style="display: none;">
+        <input type="file"
+               name="candiateThumb"
+               (change)="fileChangeEvent($event)"
+               style="display: none;"
+               accept="image/jpeg, image/jpg, image/png, image/gif">
         </label>
+      </div>
+      <div *ngIf="imgError" class="alert alert-danger">
+        {{ imgError }}
       </div>
     </div>
     <div class="row">

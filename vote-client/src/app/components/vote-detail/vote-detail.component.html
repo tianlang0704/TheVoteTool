@@ -1,4 +1,7 @@
 <div id="voteCardContainer" class="container-fluid">
+  <div *ngIf="paramsError">
+    {{paramsError}}
+  </div>
   <div>
     <div *ngIf="candidate != null" class="container panel panel-default">
       <div>

@@ -9,8 +9,8 @@ enum VoteHttpMethods { GET, POST }
 @Injectable()
 export class VoteService {
   //base url settings for client server on different hosts/ports
-  //private apiBase:String = "http://" + window.location.hostname + ":3000";
-  private apiBase:String = "";
+  private apiBase:String = "http://" + window.location.hostname + ":3000";
+  //private apiBase:String = "";
 
   constructor(private http: Http) { }
 
@@ -22,7 +22,7 @@ export class VoteService {
       VoteHttpMethods.GET,
       this.apiBase + "/serve/vote/view/" + listId
     ).then((resJSON) => {
-      console.log(resJSON);
+      // console.log(resJSON);
       const resultList = new List();
       resultList.listId = resJSON.listId;
       resultList.listDescription = resJSON.listDescription;
