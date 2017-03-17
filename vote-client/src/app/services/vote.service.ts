@@ -3,16 +3,22 @@ import {Candidate} from "../models/candidate";
 import {Headers, Http, Response} from "@angular/http";
 import {List} from "../models/list";
 import "rxjs";
+import {environment} from "../../environments/environment";
 
 enum VoteHttpMethods { GET, POST }
 
 @Injectable()
 export class VoteService {
   //base url settings for client server on different hosts/ports
-  private apiBase:String = "http://" + window.location.hostname + ":3000";
-  //private apiBase:String = "";
+  private apiBase:String;
 
-  constructor(private http: Http) { }
+  constructor(private http: Http) {
+    if(environment.production) {
+      this.apiBase = "";
+    }else{
+      this.apiBase = "http://" + window.location.hostname + ":3000"
+    }
+  }
 
 // Mark: functions to get information
   public promiseToGetList(
