@@ -11,5 +11,4 @@ export class BotbarComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

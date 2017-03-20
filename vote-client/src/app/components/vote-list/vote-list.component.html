@@ -1,7 +1,10 @@
-<div [ngSwitch]="listNav">
-  <app-vote-list-info *ngSwitchCase="'info'"  [list]="list"> </app-vote-list-info>
-  <app-vote-list-join *ngSwitchCase="'join'"  [list]="list"> </app-vote-list-join>
-  <app-vote-list-ranking *ngSwitchCase="'ranking'" [list]="list"> </app-vote-list-ranking>
+<div *ngIf="listError" id="listErrorAlert" class="alert alert-danger text-center">
+  {{listError}}
+</div>
+<div *ngIf="list" [ngSwitch]="listNav">
+  <app-vote-list-info *ngSwitchCase="listNavOptions.INFO"  [list]="list"> </app-vote-list-info>
+  <app-vote-list-join *ngSwitchCase="listNavOptions.JOIN"  [list]="list"> </app-vote-list-join>
+  <app-vote-list-ranking *ngSwitchCase="listNavOptions.RANKING" [list]="list"> </app-vote-list-ranking>
 </div>
 <app-vote-list-control
   [currentNavOption]="listNav"

@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Location } from "@angular/common";
 
 import { VoteService } from "../../services/vote.service";
 import { Candidate } from "../../models/candidate";
-import {Title} from "@angular/platform-browser";
+import { Title } from "@angular/platform-browser";
+import { VoteListComponent } from "../vote-list/vote-list.component";
+import { VoteListNavOptions } from "../vote-list/vote-list-control/vote-list-control.component";
 
 
 @Component({
@@ -14,13 +16,14 @@ import {Title} from "@angular/platform-browser";
 })
 export class VoteDetailComponent implements OnInit {
   public static routeString = "detail/:listId/:number";
+
   public candidate: Candidate;
   private paramsError: string;
 
   constructor(
     private voteService: VoteService,
     private route: ActivatedRoute,
-    private location: Location,
+    private router: Router,
     private titleService: Title
   ) {
     this.route.params.subscribe((params) => {
@@ -53,14 +56,13 @@ export class VoteDetailComponent implements OnInit {
 
   upVote(num: number) {
     this.voteService.promiseToUpVote(this.candidate.listId, this.candidate.number)
-      .then(()=>this.candidate.upCount += 1)
-      .catch((error)=>{
-        console.log(error);
-      });
+    .then(()=>this.candidate.upCount += 1)
+    .catch((error)=>{
+      console.log(error);
+    });
   }
 
   goBack() {
-    this.location.back();
+    this.router.navigateByUrl(VoteListComponent.routeBase + "/" + this.candidate.listId + "/" + VoteListNavOptions.RANKING);
   }
-
 }

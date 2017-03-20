@@ -1,0 +1,11 @@
+#wrapper {
+  position: relative;
+  display: block;
+  text-align: center;
+}
+
+#menuContainer {
+  display: inline-block;
+  margin-top: 20px;
+  font-family:黑体;
+}

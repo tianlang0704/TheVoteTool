@@ -18,6 +18,7 @@ import { VoteListControlComponent } from './components/vote-list/vote-list-contr
 import { ButtonRadio } from "./components/common/button-radio.component";
 
 import { VoteService } from "./services/vote.service";
+import { MenuComponent } from './components/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { VoteService } from "./services/vote.service";
     VoteListInfoComponent,
     VoteListRankingComponent,
     VoteListControlComponent,
-    ButtonRadio
+    ButtonRadio,
+    MenuComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,14 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 
+export class VoteListNavOptions {
+  public static INFO = "info";
+  public static JOIN = "join";
+  public static RANKING = "ranking";
+  get INFO() { return VoteListNavOptions.INFO; }
+  get JOIN() { return VoteListNavOptions.JOIN; }
+  get RANKING() { return VoteListNavOptions.RANKING; }
+}
+
 @Component({
   selector: 'app-vote-list-control',
   templateUrl: './vote-list-control.component.html',
@@ -8,7 +17,8 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 export class VoteListControlComponent implements OnInit {
   @Output() currentNavOptionChange = new EventEmitter<string>();
 
-  _btnRadioModel: string;
+  private navOptions = new VoteListNavOptions();
+  private _btnRadioModel: string;
   get btnRadioModel(): string {
     return this._btnRadioModel;
   }
@@ -25,5 +35,4 @@ export class VoteListControlComponent implements OnInit {
   constructor() { }
 
   ngOnInit() { }
-
 }
