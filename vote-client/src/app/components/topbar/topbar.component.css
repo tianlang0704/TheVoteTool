@@ -42,12 +42,19 @@
 .nav-item-sub-list a:hover {
   color: #FFF;
 }
-.navbar-brand img {
-  position: absolute;
-  z-index: 10000;
-  width: 50px;
-  height: 50px;
+.navbar-brand {
+  font-family: 黑体;
+  font-size:20px;
+}
 
+.navbar-brand img {
+  position: relative;
+  display: inline-block;
+  top: -4px;
+  z-index: 10000;
+  width: 30px;
+  height: 30px;
+  margin-right: -6px;
 }
 sub {
   font-size: 10px;

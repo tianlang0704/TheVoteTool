@@ -15,10 +15,11 @@
     </div>
     <div class="col-xs-5 thumb-count-container">
       <div class="container-fluid img-thumbnail thumb-container">
-        <img class="thumb" [src]="cand.imageFileString" alt="Thumb">
+        <a [routerLink]="['/detail/', cand.listId, cand.number]">
+          <img class="thumb" [src]="cand.imageFileString" alt="Thumb">
+        </a>
       </div>
       <div class="count-text">{{cand.upCount}} 票</div>
     </div>
   </div>
 </div>
-<hr>

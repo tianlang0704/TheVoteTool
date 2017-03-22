@@ -6,6 +6,7 @@
   <app-vote-list-join *ngSwitchCase="listNavOptions.JOIN"  [list]="list"> </app-vote-list-join>
   <app-vote-list-ranking *ngSwitchCase="listNavOptions.RANKING" [list]="list"> </app-vote-list-ranking>
 </div>
+<hr/>
 <app-vote-list-control
   [currentNavOption]="listNav"
   (currentNavOptionChange)="navControlChange($event)">

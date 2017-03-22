@@ -6,6 +6,11 @@
 
 #menuContainer {
   display: inline-block;
-  margin-top: 20px;
+  margin-top: 60px;
   font-family:黑体;
+}
+.alert {
+  position: absolute;
+  width: 100%;
+  text-align: center;
 }

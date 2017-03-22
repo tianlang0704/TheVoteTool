@@ -19,7 +19,6 @@ module.exports.handler = function(req, res) {
   ListModel.promiseToGetListFromId(listId)
   .then(function(result){
     //query list information
-    if(!result){ return Promise.reject("No list found with listId: " + listId); }
     var returnJSON = {
       listTitle: result.listTitle,
       listDescription: result.listDescription,

@@ -23,21 +23,57 @@ export class VoteListJoinComponent implements OnInit {
   ngOnInit() {
   }
 
-// Mark: =============================== Form functions
+// Mark: =============================== Image functions
   imgSource: string = "http://placehold.it/88x95";
   imgError: string;
   public fileChangeEvent(fileInput: any){
     if (!fileInput.target.files || !fileInput.target.files[0]) { return; }
-    if(fileInput.target.files[0].size > 105 * 1024) {
-      this.imgError = "File size too big";
-      return;
-    }
     this.imgError = null;
     const reader = new FileReader();
-    reader.onload = (e : any) => this.imgSource = e.target.result;
+    reader.onload = (e : any) => {
+      this.promiseToResizeDataURL(e.target.result, 350, 350)
+      .then((res) => {
+        this.imgSource = res;
+      });
+    };
     reader.readAsDataURL(fileInput.target.files[0]);
   }
 
+  public promiseToResizeDataURL(datas, maxWidth, maxHeight): Promise<string>
+  {
+    return new Promise((resolve, reject) => {
+      const img = document.createElement('img');
+      img.onload = function()
+      {
+        // Calculate wanted width and height based on max width and height
+        let wantedHeight, wantedWidth;
+        if(img.width <= maxWidth && img.height <= maxHeight) {
+          wantedWidth = img.width;
+          wantedHeight = img.height;
+        }else if(img.width > img.height) {
+          wantedWidth = maxWidth;
+          wantedHeight = wantedWidth * img.height / img.width
+        }else{
+          wantedHeight = maxHeight;
+          wantedWidth = wantedHeight * img.width / img.height;
+        }
+
+        // Draw image on canvas based on wanted width and height
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = wantedWidth;
+        canvas.height = wantedHeight;
+        ctx.drawImage(this, 0, 0, wantedWidth, wantedHeight);
+
+        // Return image on canvas as data URL
+        resolve(canvas.toDataURL("image/jpeg", 0.9));
+      };
+      img.src = datas;
+    });
+  }
+// End: =============================== Image functions
+
+// Mark: =============================== Form functions
   newListForm: FormGroup;
   buildForm(): FormGroup {
     const form = this.formBuilder.group({

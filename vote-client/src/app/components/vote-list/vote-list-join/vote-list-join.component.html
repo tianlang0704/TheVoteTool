@@ -4,8 +4,8 @@
       <div class="preview-container img-thumbnail">
         <img class="preview" [src]="imgSource" alt="Preview" />
       </div>
-      <div class="notes">
-        <span>(100KB, jpg; png; gif)</span>
+      <div class="subnote">
+        <span>(自动缩小长或宽大于300像素的图片, 接受类型: jpg; png; gif)</span>
       </div>
       <div>
         <label class="btn btn-link preview-link">
@@ -46,4 +46,3 @@
     <button id="createButton" type="button" class="btn btn-success" (click)="commit()">参加</button>
   </form>
 </div>
-<hr>

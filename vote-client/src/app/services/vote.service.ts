@@ -4,6 +4,7 @@ import {Headers, Http, Response} from "@angular/http";
 import {List} from "../models/list";
 import "rxjs";
 import {environment} from "../../environments/environment";
+import {EM} from "../components/common/error-matcher";
 
 enum VoteHttpMethods { GET, POST }
 
@@ -58,6 +59,17 @@ export class VoteService {
       return Promise.resolve({candidate: resultCandidate})
     }, (resError) => {
       return Promise.reject({error: resError.error});
+    });
+  }
+
+  public promiseToCheckListExist(listId: string): Promise<{exist: boolean, error: string}> {
+    return this.buildJSONHttpRequestPromise(
+      VoteHttpMethods.GET,
+      this.apiBase + "/serve/vote/check/" + listId
+    ).then((resJSON) => {
+      return Promise.resolve({exist: resJSON.exist});
+    }, (resError) => {
+      return Promise.reject({error: EM.match(resError.error, EM.CNSim)});
     });
   }
 // End: functions to get information
